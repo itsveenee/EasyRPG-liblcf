@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && format('manual-{0}-{1}', github.run_id, github.run_attempt) || format('{0}-{1}', github.event_name, github.ref) }}
   cancel-in-progress: true
 
 defaults:
